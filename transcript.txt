@@ -22,3 +22,56 @@
 [2026-04-26 22:59:46] INTENT: StopIntent
 [2026-04-26 22:59:48] ROBOT: Thank you for describing the picture to me.
 [2026-04-26 22:59:48] SYSTEM: Exiting Description state
+
+
+[2026-04-26 23:52:44] SYSTEM: Entered Description state
+[2026-04-26 23:52:45] ROBOT: Please begin describing the picture.
+[2026-04-26 23:52:53] USER: I see a boy and a dog in the park
+[2026-04-26 23:52:53] INTENT: ParkIntent
+[2026-04-26 23:53:11] USER: the boy is holding
+[2026-04-26 23:53:11] INTENT: BoyIntent
+[2026-04-26 23:53:21] USER: it is raining
+[2026-04-26 23:53:21] INTENT: WeatherIntent
+[2026-04-26 23:53:28] USER: and the dog looks sad
+[2026-04-26 23:53:28] INTENT: DogIntent
+[2026-04-26 23:53:41] SYSTEM: Exiting Description state
+[2026-04-26 23:54:27] SYSTEM: Entered Description state
+[2026-04-26 23:54:29] ROBOT: Please begin describing the picture.
+[2026-04-26 23:54:35] USER: a boy is walking a dog
+[2026-04-26 23:54:35] INTENT: BoyIntent
+[2026-04-26 23:54:38] USER: the boy
+[2026-04-26 23:54:38] INTENT: BoyIntent
+[2026-04-26 23:54:44] USER: the dog looks sad
+[2026-04-26 23:54:44] INTENT: DogIntent
+[2026-04-26 23:54:59] SYSTEM: Exiting Description state
+[2026-04-26 23:55:19] SYSTEM: Entered Description state
+[2026-04-26 23:55:21] ROBOT: Please begin describing the picture.
+[2026-04-26 23:55:27] USER: a boy is walking a dog
+[2026-04-26 23:55:27] INTENT: BoyIntent
+[2026-04-26 23:55:38] USER: I have nothing more to describe
+[2026-04-26 23:55:38] INTENT: StopIntent
+[2026-04-26 23:55:41] ROBOT: Thank you for describing the picture to me.
+[2026-04-26 23:55:42] SYSTEM: Exiting Description state
+[2026-04-27 00:36:26] ROBOT: Hello there! It is nice to see you.
+[2026-04-27 00:36:27] STATE: Greeting
+[2026-04-27 00:36:33] USER: <silence>
+[2026-04-27 00:36:33] INTENT: None
+[2026-04-27 00:37:02] ROBOT: Hi there! It is so nice to see you.
+[2026-04-27 00:37:02] STATE: Greeting
+[2026-04-27 00:37:05] USER: hello
+[2026-04-27 00:37:05] INTENT: Greeting
+[2026-04-27 00:37:08] ROBOT: I am Furry. I am a robot dog.
+[2026-04-27 00:37:11] ROBOT: Would you like to describe the park scene to me?
+[2026-04-27 00:37:15] USER: yes I would love to
+[2026-04-27 00:37:15] INTENT: Yes
+[2026-04-27 00:37:15] ROBOT: Great.
+[2026-04-27 00:37:17] SYSTEM: Entered Description state
+[2026-04-27 00:37:19] ROBOT: Please begin describing the picture.
+[2026-04-27 00:37:24] USER: so I see a boy
+[2026-04-27 00:37:24] INTENT: BoyIntent
+[2026-04-27 00:37:32] USER: and the boy is holding my brother
+[2026-04-27 00:37:32] INTENT: BoyIntent
+[2026-04-27 00:37:43] USER: don't look so
+[2026-04-27 00:37:43] INTENT: None
+[2026-04-27 00:37:48] USER: the dog looks sad
+[2026-04-27 00:37:48] INTENT: DogIntent

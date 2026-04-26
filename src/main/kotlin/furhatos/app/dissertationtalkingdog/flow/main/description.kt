@@ -13,7 +13,9 @@ import furhatos.app.dissertationtalkingdog.nlu.BoyIntent
 import furhatos.app.dissertationtalkingdog.nlu.ObjectIntent
 import furhatos.app.dissertationtalkingdog.nlu.WeatherIntent
 import furhatos.app.dissertationtalkingdog.nlu.DogIntent
+import furhatos.app.dissertationtalkingdog.nlu.EmotionIntent
 import gestures.*
+import furhatos.app.dissertationtalkingdog.gestures.*
 
 
 
@@ -61,8 +63,13 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "StopIntent")
 
+        // Soft, friendly dog acknowledgement
+        furhat.gesture(backchannelSmile())
+        furhat.gesture(panting1)
+
         furhat.say("Thank you for describing the picture to me.")
         Transcript.log("ROBOT", "Thank you for describing the picture to me.")
+
         goto(Ending)
     }
 
@@ -71,9 +78,9 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "WeatherIntent")
 
-        furhat.say("Oh, rainy weather makes me feel a bit gloomy too.")
-        Transcript.log("ROBOT", "Oh, rainy weather makes me feel a bit gloomy too.")
-        //furhat.listen()
+        furhat.gesture(slightlySurprised())
+        furhat.gesture(whimpering1)
+
         reentry()
     }
 
@@ -82,9 +89,9 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "ParkIntent")
 
-        furhat.say("Parks are lovely places. I like exploring them!")
-        Transcript.log("ROBOT", "Parks are lovely places. I like exploring them!")
-        //furhat.listen()
+        furhat.gesture(slightlySurprised())
+        furhat.gesture(sniffing1)
+
         reentry()
     }
 
@@ -93,22 +100,19 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "BoyIntent")
 
-        furhat.say("The boy seems happy. I like happy humans!")
-        Transcript.log("ROBOT", "The boy seems happy. I like happy humans!")
-        //furhat.listen()
+        furhat.gesture(slightlyThoughtful())
+        furhat.gesture(sniffing3)
+
         reentry()
     }
 
     // --- DOG ---
     onResponse<DogIntent> {
         Transcript.log("USER", it.text)
-        Transcript.log("INTENT", "DogIntent+Other")
+        Transcript.log("INTENT", "DogIntent")
 
-        //furhat.say("A dog? Oh! I love dogs! They’re my favourite.")
-        //Transcript.log("ROBOT", "A dog? Oh! I love dogs! They’re my favourite.")
-        furhat.say("Woof!")
-        Transcript.log("ROBOT", "Woof!")
-        reentry()
+        furhat.gesture(doubleNod())
+        furhat.gesture(bark1)
     }
 
     // --- OBJECTS ---
@@ -116,27 +120,69 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "ObjectIntent")
 
-        furhat.say("Interesting! Keep going, I'm listening.")
-        Transcript.log("ROBOT", "Interesting! Keep going, I'm listening.")
-        //furhat.listen()
+        furhat.gesture(smallNod())
+        furhat.gesture(sniffing1)
+
         reentry()
     }
 
-    // --- ANY OTHER SPEECH that doesn't match the intent---
+    onResponse<EmotionIntent> {
+        Transcript.log("USER", it.text)
+        Transcript.log("INTENT", "EmotionIntent")
+
+        val text = it.text.lowercase()
+
+        when {
+            // SAD
+            "sad" in text || "gloomy" in text || "upset" in text -> {
+                furhat.gesture(slightlyThoughtful())
+                furhat.gesture(whimpering2)
+            }
+
+            // HAPPY
+            "happy" in text || "joyful" in text -> {
+                furhat.gesture(doubleNod())
+                furhat.gesture(bark2)
+            }
+
+            // EXCITED
+            "excited" in text -> {
+                furhat.gesture(backchannelSmile())
+                furhat.gesture(bark3)
+            }
+
+            // SCARED
+            "scared" in text || "afraid" in text || "nervous" in text -> {
+                furhat.gesture(slightlySurprised())
+                furhat.gesture(whimpering1)
+            }
+
+            // ANGRY
+            "angry" in text || "mad" in text || "furious" in text -> {
+                furhat.gesture(slightlyThoughtful())
+                furhat.gesture(growl2)
+            }
+        }
+
+        reentry()
+    }
+
+
+    // --- ANY OTHER SPEECH that doesn't match the intent - soft engagement---
     onResponse {
-        // No reaction, just keep listening
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "None")
-        furhat.say("Okay, go on.")
-        Transcript.log("ROBOT", "Okay, go on.")
-        //furhat.listen()
+
+        furhat.gesture(backchannelSmile())
+        furhat.gesture(panting1)
+
         reentry()
     }
 
 
     // --- SILENCE ---
     onNoResponse {
-        //furhat.listen()
+        furhat.gesture(smallNod())
         reentry()
     }
 

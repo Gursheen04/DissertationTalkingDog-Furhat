@@ -9,33 +9,58 @@ import furhatos.nlu.common.Thanks
 import furhatos.records.Location
 import furhat.libraries.standard.GesturesLib
 import furhatos.app.dissertationtalkingdog.flow.Parent
+import gestures.*
+import furhatos.app.dissertationtalkingdog.gestures.*
+import furhatos.app.dissertationtalkingdog.utils.Transcript
 
 
 val Ending: State = state(Parent) {
     onEntry {
-        furhat.say{
-            +"That was all I wanted to ask you"
-            +"Have a nice day"
-            +GesturesLib.PerformBigSmile1
-            behavior { furhat.attend(Location.DOWN) }
-        }
+        Transcript.log("STATE", "Ending")
+
+        // Friendly closing gesture
+        furhat.gesture(backchannelSmile())
+        furhat.gesture(panting1)
+
+        val line = "Thank you. I’m done now."
+        furhat.say(line)
+        Transcript.log("ROBOT", line)
+
+        // Dog looks down to signal disengagement
+        furhat.attend(Location.DOWN)
+
+        // Begin listening in case user says "thanks"
         furhat.listen()
     }
 
     onResponse<Thanks> {
-        furhat.say {
-            + "It was nice talking to you"
-        }
+        Transcript.log("USER", it.text)
+        Transcript.log("INTENT", "Thanks")
+
+        // Soft, friendly dog reaction
+        furhat.gesture(backchannelSmile())
+        furhat.gesture(panting1)
+
+        val line = "Goodbye."
+        furhat.say(line)
+        Transcript.log("ROBOT", line)
     }
     onResponse {
-        furhat.say {
-            + "It was nice talking to you"
-            + "See you Later"
-        }
+        Transcript.log("USER", it.text)
+        Transcript.log("INTENT", "None")
+
+        // Generic soft disengagement
+        furhat.gesture(smallNod())
+        furhat.gesture(panting1)
+
+        val line = "Goodbye."
+        furhat.say(line)
+        Transcript.log("ROBOT", line)
     }
 
     /** after 15 seconds, user expected to leave interaction and another user to stat a new convo with the robot */
     onTime(15000) {
+        Transcript.log("SYSTEM", "Ending timeout → Sleeping")
         goto(Sleeping)
     }
 }
