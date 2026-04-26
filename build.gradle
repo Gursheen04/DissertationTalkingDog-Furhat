@@ -1,0 +1,52 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'application' // This adds the 'run' task properly
+}
+
+// Ensure the main class is pointed to your actual file
+mainClassName = 'furhatos.app.dissertationtalkingdog.MainKt'
+
+application {
+    mainClass.set('furhatos.app.dissertationtalkingdog.MainKt')
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    // This is the specific one needed for furhat-commons
+    maven { url "https://maven.furhat.io/releases" }
+    // This was the old one, keep it as a backup
+    maven { url "https://s3-eu-west-1.amazonaws.com/furhat-maven/releases"}
+}
+
+dependencies {
+    implementation 'com.furhatrobotics.furhatos:furhat-commons:2.9.1'
+    implementation 'com.furhatrobotics.assets:StandardLibraryCollection:+'
+    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:<version>"
+}
+
+// Keep your Kotlin settings
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+// Simplified Jar block - no more guessing
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'furhatos.app.dissertationtalkingdog.MainKt'
+        )
+    }
+}
+
+shadowJar {
+    archiveBaseName.set("DissertationTalkingDog")
+    archiveClassifier.set('skill')
+    from "skill.properties"
+    from "assets"
+}
