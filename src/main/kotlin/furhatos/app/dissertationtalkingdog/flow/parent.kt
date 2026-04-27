@@ -4,6 +4,12 @@ package furhatos.app.dissertationtalkingdog.flow
 import furhatos.flow.kotlin.*
 import furhatos.app.dissertationtalkingdog.flow.main.Sleeping
 
+enum class DogMode {
+    FULL,
+    HALF
+}
+var dogMode: DogMode = DogMode.FULL
+
 val Parent: State = state {
 
     onUserEnter(instant = true) {
@@ -23,18 +29,4 @@ val Parent: State = state {
             !furhat.isAttending(it) -> furhat.glance(it.head.location) // other user left, just glance
         }
     }
-
 }
-/**
-val Parent: State = state {
-    onButton("SLEEP", color = Color.Blue) {
-        goto(Sleep)
-    }
-    onButton("WAKE", color = Color.Blue) {
-        goto(WakeUp)
-    }
-    onButton("SHOW ALL GESTURES", color = Color.Blue) {
-        goto(ShowAllGestures)
-    }
-}
-*/
