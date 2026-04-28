@@ -5,8 +5,8 @@ import furhatos.app.dissertationtalkingdog.gestures.yawn1
 import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.state
-import gestures.FallAsleep
-import gestures.WakeUpWithHeadShake
+import furhatos.app.dissertationtalkingdog.gestures.FallAsleep
+import furhatos.app.dissertationtalkingdog.gestures.WakeUpWithHeadShake
 
 val Sleep: State = state(Parent) {
     onExit {

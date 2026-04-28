@@ -1,4 +1,4 @@
-package gestures
+package furhatos.app.dissertationtalkingdog.gestures
 
 import furhatos.app.dissertationtalkingdog.utils.getRandomInRange
 import furhatos.gestures.BasicParams

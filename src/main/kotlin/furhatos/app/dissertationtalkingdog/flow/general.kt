@@ -12,9 +12,11 @@ import furhatos.app.dissertationtalkingdog.utils.isVirtual
 import furhatos.flow.kotlin.*
 import furhatos.skills.UserManager
 import furhatos.util.CommonUtils
-import gestures.FallAsleep
-import gestures.WakeUpWithHeadShake
+import furhatos.app.dissertationtalkingdog.gestures.FallAsleep
+import furhatos.app.dissertationtalkingdog.gestures.WakeUpWithHeadShake
 
+
+/**
 val idleHeadMovements = partialState {
     onTime(2000..2500, 3200..6000, instant = true) {
         // Regulates when Furhat does idle head movements
@@ -27,12 +29,13 @@ val idleHeadMovements = partialState {
             gazeAway = false // Function removed, but kept here if we re-introduce
         )
         furhat.gesture(gesture)
+
     }
 }
-
+*/
 // Set your run configuration to use "-DIntelliJ=true" as a JVM argument when running the skill.
 // It will let the skill know you are running the skill from inside intelliJ, and will change the references to the audio files so they will play!
-val runningFromIntelliJ = System.getProperty("IntelliJ")?.toBoolean() ?: false
+//----val runningFromIntelliJ = System.getProperty("IntelliJ")?.toBoolean() ?: false
 val logger = CommonUtils.getLogger(DissertationtalkingdogSkill::class.java)
 
 val Main: State = state(Parent) {

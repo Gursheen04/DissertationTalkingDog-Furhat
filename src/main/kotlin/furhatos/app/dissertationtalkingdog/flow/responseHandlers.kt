@@ -30,7 +30,7 @@ import furhatos.gestures.Gestures.Thoughtful
 import furhatos.nlu.common.AskName
 import furhatos.nlu.common.Greeting
 import furhatos.nlu.common.No
-import gestures.WakeUpWithHeadShake
+import furhatos.app.dissertationtalkingdog.gestures.WakeUpWithHeadShake
 
 val ResponseHandlers = partialState {
 

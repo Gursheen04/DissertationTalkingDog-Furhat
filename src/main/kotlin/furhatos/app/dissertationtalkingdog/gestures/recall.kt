@@ -1,4 +1,4 @@
-package gestures
+package furhatos.app.dissertationtalkingdog.gestures
 
 import furhatos.gestures.defineGesture
 import furhatos.gestures.BasicParams

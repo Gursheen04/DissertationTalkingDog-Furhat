@@ -1,19 +1,20 @@
 package furhatos.app.dissertationtalkingdog.flow.main
 
 import furhatos.flow.kotlin.State
-import furhatos.flow.kotlin.behavior
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
 import furhatos.nlu.common.Thanks
 import furhatos.records.Location
-import furhat.libraries.standard.GesturesLib
 import furhatos.app.dissertationtalkingdog.flow.DogMode
 import furhatos.app.dissertationtalkingdog.flow.Parent
 import furhatos.app.dissertationtalkingdog.flow.dogMode
-import gestures.*
 import furhatos.app.dissertationtalkingdog.gestures.*
 import furhatos.app.dissertationtalkingdog.utils.Transcript
+import furhatos.app.dissertationtalkingdog.gestures.panting1
+
+
+
 
 
 val Ending: State = state(Parent) {
@@ -49,7 +50,6 @@ val Ending: State = state(Parent) {
             // Soft, friendly dog reaction
             furhat.gesture(backchannelSmile())
             furhat.gesture(panting1)
-
             val line = "Goodbye."
             furhat.say(line)
             Transcript.log("ROBOT", line)

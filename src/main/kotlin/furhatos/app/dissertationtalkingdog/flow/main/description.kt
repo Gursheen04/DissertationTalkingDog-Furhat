@@ -16,8 +16,8 @@ import furhatos.app.dissertationtalkingdog.nlu.ObjectIntent
 import furhatos.app.dissertationtalkingdog.nlu.WeatherIntent
 import furhatos.app.dissertationtalkingdog.nlu.DogIntent
 import furhatos.app.dissertationtalkingdog.nlu.EmotionIntent
-import gestures.*
 import furhatos.app.dissertationtalkingdog.gestures.*
+
 
 
 /** this file is made with questions that the furhat is gonna ask the user */
@@ -42,7 +42,6 @@ val Description: State = state(Parent) {
 
         if (dogMode == DogMode.FULL){
             furhat.gesture(bark1)
-            furhat.say("Please begin describing the picture.")
             Transcript.log("ROBOT", "Please begin describing the picture.")
         } else {
             furhat.say("Please begin describing the picture.")

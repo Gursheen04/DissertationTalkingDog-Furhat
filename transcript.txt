@@ -1,0 +1,4 @@
+[2026-04-28 21:14:28] ROBOT: Hello there! It is nice to see you.
+[2026-04-28 21:14:28] STATE: Greeting
+[2026-04-28 21:14:34] USER: <silence>
+[2026-04-28 21:14:34] INTENT: None

@@ -1,7 +1,7 @@
 package furhatos.app.dissertationtalkingdog.utils
 
 import furhatos.app.dissertationtalkingdog.DissertationtalkingdogSkill
-import furhatos.app.dissertationtalkingdog.flow.runningFromIntelliJ
+//import furhatos.app.dissertationtalkingdog.flow.runningFromIntelliJ
 import furhatos.gestures.*
 import furhatos.records.Pixel
 import furhatos.records.Record
@@ -11,6 +11,7 @@ import java.io.InputStreamReader
 
 var isVirtual = false
 
+val runningFromIntelliJ = System.getProperty("IntelliJ")?.toBoolean() ?: false
 // Random double in given range
 fun getRandomInRange(startInterval: Double = 18.0, interval: Double = 3.0) = startInterval + Math.random() * interval
 

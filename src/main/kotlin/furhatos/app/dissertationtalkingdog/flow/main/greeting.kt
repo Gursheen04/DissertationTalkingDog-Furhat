@@ -8,13 +8,12 @@ import furhatos.flow.kotlin.state
 import furhatos.nlu.common.Greeting
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
-import furhat.libraries.standard.GesturesLib
 import furhatos.app.dissertationtalkingdog.flow.DogMode
 import furhatos.app.dissertationtalkingdog.flow.Parent
 import furhatos.app.dissertationtalkingdog.flow.dogMode
-import gestures.*
 import furhatos.app.dissertationtalkingdog.gestures.*
 import furhatos.app.dissertationtalkingdog.utils.Transcript
+
 
 
 val Greeting: State = state (Parent) {
@@ -133,6 +132,7 @@ val Greeting: State = state (Parent) {
             Transcript.log("ROBOT", "Are you there?")
         } else {
             furhat.gesture(smallNod())
+
 
             furhat.say("Are you there?")
             Transcript.log("ROBOT", "Are you there?")

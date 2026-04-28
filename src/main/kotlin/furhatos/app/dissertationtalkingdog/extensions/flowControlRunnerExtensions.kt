@@ -8,7 +8,7 @@ import furhatos.app.dissertationtalkingdog.gestures.*
 import furhatos.flow.kotlin.FlowControlRunner
 import furhatos.flow.kotlin.RandomPolicy
 import furhatos.flow.kotlin.furhat
-import gestures.WakeUpWithHeadShake
+import furhatos.app.dissertationtalkingdog.gestures.WakeUpWithHeadShake
 import org.apache.logging.log4j.Level
 
 fun FlowControlRunner.setDogCharacter() {
