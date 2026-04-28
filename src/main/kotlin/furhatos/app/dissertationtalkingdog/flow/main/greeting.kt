@@ -118,7 +118,6 @@ val Greeting: State = state (Parent) {
             furhat.say("Sorry, I didn’t get that.")
             Transcript.log("ROBOT", "Sorry, I didn’t get that.")
         }
-
         furhat.listen()
     }
 

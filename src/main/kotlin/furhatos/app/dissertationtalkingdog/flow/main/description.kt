@@ -1,11 +1,13 @@
 package furhatos.app.dissertationtalkingdog.flow.main
 
+import furhatos.app.dissertationtalkingdog.flow.DogMode
 import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onNoResponse
 import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
 import furhatos.app.dissertationtalkingdog.flow.Parent
+import furhatos.app.dissertationtalkingdog.flow.dogMode
 import furhatos.app.dissertationtalkingdog.utils.Transcript
 import furhatos.app.dissertationtalkingdog.nlu.ParkIntent
 import furhatos.app.dissertationtalkingdog.nlu.StopIntent
@@ -16,11 +18,6 @@ import furhatos.app.dissertationtalkingdog.nlu.DogIntent
 import furhatos.app.dissertationtalkingdog.nlu.EmotionIntent
 import gestures.*
 import furhatos.app.dissertationtalkingdog.gestures.*
-
-
-
-
-
 
 
 /** this file is made with questions that the furhat is gonna ask the user */
@@ -43,17 +40,20 @@ val Description: State = state(Parent) {
             }
         }
 
-        furhat.say("Please begin describing the picture.")
-        Transcript.log("ROBOT", "Please begin describing the picture.")
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(bark1)
+            furhat.say("Please begin describing the picture.")
+            Transcript.log("ROBOT", "Please begin describing the picture.")
+        } else {
+            furhat.say("Please begin describing the picture.")
+            Transcript.log("ROBOT", "Please begin describing the picture.")
+        }
 
         reentry()
-
-        //delay(3000)
-        //furhat.listen()
     }
 
     onReentry {
-        delay(300)
+        delay(200)
         furhat.listen()
     }
 
@@ -63,13 +63,17 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "StopIntent")
 
-        // Soft, friendly dog acknowledgement
-        furhat.gesture(backchannelSmile())
-        furhat.gesture(panting1)
+        if (dogMode == DogMode.FULL){
+            // Soft, friendly dog acknowledgement
+            furhat.gesture(backchannelSmile())
+            furhat.gesture(panting1)
 
-        furhat.say("Thank you for describing the picture to me.")
-        Transcript.log("ROBOT", "Thank you for describing the picture to me.")
-
+            furhat.say("Thank you for describing the picture to me.")
+            Transcript.log("ROBOT", "Thank you for describing the picture to me.")
+        } else {
+            furhat.say("Thank you for describing the picture to me.")
+            Transcript.log("ROBOT", "Thank you for describing the picture to me.")
+        }
         goto(Ending)
     }
 
@@ -78,9 +82,10 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "WeatherIntent")
 
-        furhat.gesture(slightlySurprised())
-        furhat.gesture(whimpering1)
-
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(slightlySurprised())
+            furhat.gesture(whimpering1)
+        }
         reentry()
     }
 
@@ -89,9 +94,11 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "ParkIntent")
 
-        furhat.gesture(slightlySurprised())
-        furhat.gesture(sniffing1)
-
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(slightlySurprised())
+            furhat.gesture(sniffing1)
+            furhat.gesture(panting1)
+        }
         reentry()
     }
 
@@ -100,9 +107,11 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "BoyIntent")
 
-        furhat.gesture(slightlyThoughtful())
-        furhat.gesture(sniffing3)
-
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(slightlyThoughtful())
+            furhat.gesture(sniffing3)
+            furhat.gesture(panting1)
+        }
         reentry()
     }
 
@@ -111,8 +120,11 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "DogIntent")
 
-        furhat.gesture(doubleNod())
-        furhat.gesture(bark1)
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(doubleNod())
+            furhat.gesture(bark1)
+        }
+        reentry()
     }
 
     // --- OBJECTS ---
@@ -120,9 +132,10 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "ObjectIntent")
 
-        furhat.gesture(smallNod())
-        furhat.gesture(sniffing1)
-
+        if(dogMode == DogMode.FULL) {
+            furhat.gesture(smallNod())
+            furhat.gesture(sniffing1)
+        }
         reentry()
     }
 
@@ -130,66 +143,62 @@ val Description: State = state(Parent) {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "EmotionIntent")
 
-        val text = it.text.lowercase()
-
-        when {
-            // SAD
-            "sad" in text || "gloomy" in text || "upset" in text -> {
-                furhat.gesture(slightlyThoughtful())
-                furhat.gesture(whimpering2)
-            }
-
-            // HAPPY
-            "happy" in text || "joyful" in text -> {
-                furhat.gesture(doubleNod())
-                furhat.gesture(bark2)
-            }
-
-            // EXCITED
-            "excited" in text -> {
-                furhat.gesture(backchannelSmile())
-                furhat.gesture(bark3)
-            }
-
-            // SCARED
-            "scared" in text || "afraid" in text || "nervous" in text -> {
-                furhat.gesture(slightlySurprised())
-                furhat.gesture(whimpering1)
-            }
-
-            // ANGRY
-            "angry" in text || "mad" in text || "furious" in text -> {
-                furhat.gesture(slightlyThoughtful())
-                furhat.gesture(growl2)
+        if (dogMode == DogMode.FULL) {
+            val text = it.text.lowercase()
+            when {
+                "sad" in text || "gloomy" in text || "upset" in text -> {
+                    furhat.gesture(slightlyThoughtful())
+                    furhat.gesture(whimpering2)
+                }
+                "happy" in text || "joyful" in text -> {
+                    furhat.gesture(doubleNod())
+                    furhat.gesture(bark2)
+                }
+                "excited" in text -> {
+                    furhat.gesture(backchannelSmile())
+                    furhat.gesture(bark3)
+                }
+                "scared" in text || "afraid" in text || "nervous" in text -> {
+                    furhat.gesture(slightlySurprised())
+                    furhat.gesture(whimpering1)
+                }
+                "angry" in text || "mad" in text || "furious" in text -> {
+                    furhat.gesture(slightlyThoughtful())
+                    furhat.gesture(growl2)
+                }
             }
         }
 
         reentry()
     }
 
-
     // --- ANY OTHER SPEECH that doesn't match the intent - soft engagement---
     onResponse {
         Transcript.log("USER", it.text)
         Transcript.log("INTENT", "None")
 
-        furhat.gesture(backchannelSmile())
-        furhat.gesture(panting1)
-
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(backchannelSmile())
+            furhat.gesture(panting1)
+        }
         reentry()
     }
 
 
     // --- SILENCE ---
     onNoResponse {
-        furhat.gesture(smallNod())
-        reentry()
+        if (dogMode == DogMode.FULL){
+            furhat.gesture(smallNod())
+            reentry()
+        }
+        if (dogMode == DogMode.HALF) {
+            furhat.say("Okay.")
+            reentry()
+        }
     }
 
     onExit {
         timerRunning = false
         Transcript.log("SYSTEM", "Exiting Description state")
     }
-
-
 }

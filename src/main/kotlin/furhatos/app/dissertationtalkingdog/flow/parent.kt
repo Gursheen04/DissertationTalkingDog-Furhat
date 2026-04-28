@@ -10,6 +10,7 @@ enum class DogMode {
 }
 var dogMode: DogMode = DogMode.FULL
 
+
 val Parent: State = state {
 
     onUserEnter(instant = true) {
