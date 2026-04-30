@@ -19,6 +19,7 @@ repositories {
 dependencies {
     implementation 'com.furhatrobotics.furhatos:furhat-commons:2.9.1'
     implementation 'com.furhatrobotics.assets:StandardLibraryCollection:+'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
 }
 
 sourceSets {
@@ -30,8 +31,9 @@ sourceSets {
 }
 
 application {
-    mainClass.set('furhatos.app.dissertationtalkingdog.MainKt')
+    mainClass.set('furhatos.app.dissertationtalkingdog.DissertationtalkingdogSkill')
 }
+
 
 compileKotlin {
     kotlinOptions {
@@ -40,16 +42,80 @@ compileKotlin {
 }
 
 jar {
+    def lowerCasedName = archiveBaseName.get().toLowerCase()
+    def normalizedName = lowerCasedName.substring(0,1).toUpperCase() + lowerCasedName.substring(1)
     manifest {
         attributes(
-                'Main-Class': 'furhatos.app.dissertationtalkingdog.MainKt'
+                'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' '),
+                'Main-Class': "furhatos.app.${lowerCasedName}.${normalizedName}Skill"
+        )
+    }
+}
+
+//ShadowJar depends on jar being finished properly.
+shadowJar {
+    exclude '**/Log4j2Plugins.dat'
+    exclude '**/node_modules'
+
+    from("skill.properties")
+    from("assets")
+    // Required for ShadowJar 6.1.0
+    mainClassName = "furhatos.app.dissertationtalkingdog.DissertationtalkingdogSkill"
+
+
+    def properties = new Properties()
+    properties.load(project.file('skill.properties').newDataInputStream())
+    def version = properties.getProperty('version')
+    def name = properties.getProperty('name')
+
+    archiveBaseName.set(name)
+    archiveVersion.set(version)
+    archiveExtension.set("skill")
+
+    manifest {
+        attributes(
+                'Main-Class': "furhatos.app.${project.name.toLowerCase()}.${project.name.capitalize()}Skill"
+        )
+    }
+}
+
+    /**
+jar {
+    manifest {
+        attributes(
+                "Main-Class": "furhatos.app.dissertationtalkingdog.DissertationtalkingdogSkill"
         )
     }
 }
 
 shadowJar {
     archiveBaseName.set("DissertationTalkingDog")
-    archiveClassifier.set('skill')
-    from "skill.properties"
-    from "assets"
+    archiveClassifier.set("skill")
+    archiveVersion.set("1.0.1")
+
+    // Required for ShadowJar 6.1.0
+    mainClassName = "furhatos.app.dissertationtalkingdog.DissertationtalkingdogSkill"
+
+    manifest {
+        attributes(
+                "Main-Class": "furhatos.app.dissertationtalkingdog.DissertationtalkingdogSkill"
+        )
+    }
+
+    // Include skill.properties from resources
+    from("src/main/resources") {
+        include("skill.properties")
+    }
+
+    // Include assets folder if you have one
+    from("assets")
+
+    // Exclude unnecessary build artifacts
+    exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
+    exclude("build/**", ".gradle/**", ".idea/**", "out/**")
+
+
 }
+     */
+
+

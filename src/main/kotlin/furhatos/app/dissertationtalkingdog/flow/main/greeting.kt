@@ -30,6 +30,8 @@ val Greeting: State = state (Parent) {
                 "Hi there! It is so nice to see you."
             ).random()
 
+            delay(100)
+
             furhat.say(greetingLine)
             Transcript.log("ROBOT", greetingLine)
             Transcript.log("STATE", "Greeting")
@@ -72,7 +74,7 @@ val Greeting: State = state (Parent) {
         Transcript.log("INTENT", "Yes")
 
         if (dogMode == DogMode.FULL){
-            furhat.gesture(smallNod())
+            //furhat.gesture(smallNod())
             furhat.gesture(panting1)
 
             furhat.say("Great.")

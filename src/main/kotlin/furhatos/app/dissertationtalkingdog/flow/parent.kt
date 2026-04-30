@@ -8,7 +8,7 @@ enum class DogMode {
     FULL,
     HALF
 }
-var dogMode: DogMode = DogMode.FULL
+var dogMode: DogMode = DogMode.HALF
 
 
 val Parent: State = state {

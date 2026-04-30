@@ -42,6 +42,8 @@ val Description: State = state(Parent) {
 
         if (dogMode == DogMode.FULL){
             furhat.gesture(bark1)
+            delay(400)
+            furhat.say("Please begin describing the picture.")
             Transcript.log("ROBOT", "Please begin describing the picture.")
         } else {
             furhat.say("Please begin describing the picture.")
@@ -96,7 +98,7 @@ val Description: State = state(Parent) {
         if (dogMode == DogMode.FULL){
             furhat.gesture(slightlySurprised())
             furhat.gesture(sniffing1)
-            furhat.gesture(panting1)
+            furhat.gesture(bark1)
         }
         reentry()
     }
@@ -133,7 +135,7 @@ val Description: State = state(Parent) {
 
         if(dogMode == DogMode.FULL) {
             furhat.gesture(smallNod())
-            furhat.gesture(sniffing1)
+            furhat.gesture(whimpering1)
         }
         reentry()
     }
@@ -178,7 +180,7 @@ val Description: State = state(Parent) {
 
         if (dogMode == DogMode.FULL){
             furhat.gesture(backchannelSmile())
-            furhat.gesture(panting1)
+            furhat.gesture(bark1)
         }
         reentry()
     }

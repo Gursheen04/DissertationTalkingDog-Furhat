@@ -1,5 +1,6 @@
 package furhatos.app.dissertationtalkingdog.flow
 
+import furhatos.app.dissertationtalkingdog.extensions.setDogCharacter
 import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.state
@@ -13,27 +14,29 @@ import furhatos.app.dissertationtalkingdog.settings.MAX_NUMBER_OF_USERS
 
 val Init: State = state {
     init {
-        /** Set our default interaction parameters */
         users.setSimpleEngagementPolicy(DISTANCE_TO_ENGAGE, MAX_NUMBER_OF_USERS)
+        setDogCharacter()
+    }
 
-        /** set character parameters */
-        furhat.mask = "dog"
-        furhat.voice = Voice(name = "Matthew")
-        furhat.character = "Alex"
+    onEntry {
+        furhat.attendNobody()
 
-        /** start interaction */
-        /** Init is triggered the first time you enter this state and never again */
+        // Give the robot time to detect the user
+        delay(500)
+
         when (users.count) {
-            0 -> goto(Sleeping) /** wait for users to attend */
+            0 -> goto(Sleeping)
             1 -> {
-                furhat.attend(users.random) /** attend that user and go to greetings*/
+                furhat.attend(users.random)
                 goto(Greeting)
             }
             else -> {
-                furhat.attendAll() /**for more than one users, make sure to attend all and go to greetings.*/
+                furhat.attendAll()
                 goto(Greeting)
             }
-
         }
     }
+
 }
+
+
